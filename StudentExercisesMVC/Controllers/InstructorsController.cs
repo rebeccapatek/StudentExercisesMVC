@@ -42,8 +42,9 @@ namespace StudentExercisesMVC.Controllers
                 i.LastName,
                 i.SlackHandle,
                 i.CohortId, 
-                i.Specialty
-            FROM Instructor i
+                i.Specialty,
+                c.Name
+            FROM Instructor i LEFT JOIN Cohort c ON i.CohortId=c.Id
         ";
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -56,8 +57,13 @@ namespace StudentExercisesMVC.Controllers
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
+                            Specialty = reader.GetString(reader.GetOrdinal("Specialty")),
                             CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            Specialty = reader.GetString(reader.GetOrdinal("Specialty"))
+                            cohort = new Cohort()
+                            {
+                                 Name = reader.GetString(reader.GetOrdinal("Name"))
+                            }
+
 
                         };
 

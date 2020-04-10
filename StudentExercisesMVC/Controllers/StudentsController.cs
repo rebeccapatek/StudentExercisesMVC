@@ -42,12 +42,11 @@ namespace StudentExercisesMVC.Controllers
                 s.FirstName,
                 s.LastName,
                 s.SlackHandle,
-                s.CohortId
-            FROM Student s
-        ";
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    List<Student> students = new List<Student>();
+                s.CohortId,
+                c.Name
+            FROM Student s LEFT JOIN COHORT c ON s.CohortId=c.Id ";
+                    var reader = cmd.ExecuteReader();
+                    var students = new List<Student>();
                     while (reader.Read())
                     {
                         Student student = new Student
@@ -56,7 +55,12 @@ namespace StudentExercisesMVC.Controllers
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
-                            CohortId = reader.GetInt32(reader.GetOrdinal("CohortId"))
+                            CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                            cohort = new Cohort()
+                            {
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            }
+
                         };
 
                         students.Add(student);
@@ -69,6 +73,7 @@ namespace StudentExercisesMVC.Controllers
             }
 
         }
+   
 
         // GET: Students/Details/5
         public ActionResult Details(int id)

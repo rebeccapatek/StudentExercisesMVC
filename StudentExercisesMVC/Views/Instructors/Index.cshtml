@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.Specialty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CohortId)
+                Cohort Name
             </th>
             <th></th>
         </tr>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Specialty)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CohortId)
+                @Html.DisplayFor(modelItem => item.cohort.Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
